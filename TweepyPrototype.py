@@ -8,9 +8,12 @@ auth.set_access_token("871671216901427201-8xLxXu1mGnw9hW268mlTHSn0ayvbXD7",
 api = tweepy.API(auth)
 
 trendsList = list()
+trendsFilter = str()
 
 output = list()
 transcript = list()
+
+countConst = 5
 
 
 trendsDick = api.trends_place(2295414)
@@ -20,19 +23,22 @@ for trend in trendsDick[0]["trends"]:
 
 for i in range(0,4):
     output.append(trendsList[i])
-    for tweet in api.search(q=trendsList[i],lang="en",count = 5,result_type="mixed"):
-        if(not tweet.retweeted):
+    trendsFilter = trendsList[i]+' -filter:retweets'
+    for tweet in api.search(q=trendsFilter,lang="en",count = 5,result_type="mixed"):
             output.append("https://twitter.com/twitter/statuses/"+str(tweet.id))
             transcript.append(tweet.text)
-        else:
-            i-=1
-            count+=1
+                
+            
+                
+
+            
+
 
         
 
 #print(output)
-
-#if((transcript[i])[-23:-18] == 'https'):
-        #transcript[i] = (transcript[i])[0:-23]
+for i in range(0,len(transcript)-1): 
+    if((transcript[i])[-23:-18] == 'https'):
+        transcript[i] = (transcript[i])[0:-23]
 
 print(transcript)
