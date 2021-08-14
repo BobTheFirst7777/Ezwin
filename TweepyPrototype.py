@@ -10,7 +10,7 @@ api = tweepy.API(auth)
 trendsList = list()
 
 output = list()
-
+transcript = list()
 
 
 trendsDick = api.trends_place(2295414)
@@ -22,6 +22,13 @@ for i in range(0,4):
     output.append(trendsList[i])
     for tweet in api.search(q=trendsList[i],lang="en",count = 5,result_type="mixed"):
         output.append("https://twitter.com/twitter/statuses/"+str(tweet.id))
+        transcript.append(tweet.text)
 
-print(output)
+        
 
+#print(output)
+
+#if((transcript[i])[-23:-18] == 'https'):
+        #transcript[i] = (transcript[i])[0:-23]
+
+print(transcript)
