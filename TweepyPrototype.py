@@ -21,8 +21,12 @@ for trend in trendsDick[0]["trends"]:
 for i in range(0,4):
     output.append(trendsList[i])
     for tweet in api.search(q=trendsList[i],lang="en",count = 5,result_type="mixed"):
-        output.append("https://twitter.com/twitter/statuses/"+str(tweet.id))
-        transcript.append(tweet.text)
+        if(not tweet.retweeted):
+            output.append("https://twitter.com/twitter/statuses/"+str(tweet.id))
+            transcript.append(tweet.text)
+        else:
+            i-=1
+            count+=1
 
         
 
