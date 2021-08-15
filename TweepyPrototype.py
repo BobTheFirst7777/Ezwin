@@ -44,7 +44,7 @@ print(len(transcript))
 
 for i in range(0,len(transcript)):
     #gtts.tokenizer.pre_processors.abbreviations(transcript[i])
-    myobj = gTTS(text=transcript[i], lang=language, slow=False)#Slow = False to force high speed
+    myobj = gTTS(text=transcript[i], lang=language, slow=False,tweet_mode = "extended")#Slow = False to force high speed
     myobj.save(str(i)+"audio.mp3")
 
 

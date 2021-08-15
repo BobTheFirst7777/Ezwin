@@ -45,7 +45,7 @@ for i in range(0,len(transcript)-1):
 
 #TTS
 
-myobj = gTTS(text=transcript[0], lang=language, slow=False)#Slow = False to force high speed
+myobj = gTTS(text=transcript[0], lang=language, slow=False, tweet_mode = "extended")#Slow = False to force high speed
 myobj.save("welcome.mp3")
 
 #screenshot algorithm
