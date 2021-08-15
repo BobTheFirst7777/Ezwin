@@ -9,7 +9,7 @@ SCOPES = ['https://www.googleapis.com/auth/youtube.upload']
 
 service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
 
-upload_date_time = datetime.datetime(2021, 8, 15, 14, 00, 0).isoformat() + '.000Z'
+#upload_date_time = datetime.datetime(2021, 8, 15, 14, 00, 0).isoformat() + '.000Z'
 
 request_body = {
     'snippet': {
