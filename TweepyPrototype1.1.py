@@ -2,16 +2,21 @@ import tweepy
 import json
 from selenium import webdriver 
 from time import sleep 
-from PIL import Image 
+from PIL import Image
+
+from gtts import gTTS
+#import os
 
 
 #twitter algorithm
-
 auth = tweepy.OAuthHandler("rIRlNfDSqeKSG3S28y1lftbHB",
-                           "FO8ljQPJNZfNucfrIqz4SluY1ZvoidezpZYYR6smsGp19Tiv9X")
+                           "FO8ljQPJNZfNucfrIqz4SluY1ZvoidezpZYYR6smsGp19Tiv9X")#API public and secret keys
 auth.set_access_token("871671216901427201-8xLxXu1mGnw9hW268mlTHSn0ayvbXD7",
-                      "soFJg6EQbCJmJdj014Zbdeo2MxJlhylBTLyF3ejclZZ3m")
+                      "soFJg6EQbCJmJdj014Zbdeo2MxJlhylBTLyF3ejclZZ3m")#Access token and secret
 api = tweepy.API(auth)
+
+
+language = 'en'#Language that tts reads
 
 trendsList = list()
 trendsFilter = str()
@@ -22,21 +27,26 @@ transcript = list()
 countConst = 5
 
 
-trendsDick = api.trends_place(2295414)
+trendsDick = api.trends_place(2295414)#Get list of dictionaries of trends of yahoo WOEID code
 for trend in trendsDick[0]["trends"]:
-    trendsList.append(trend["name"])
+    trendsList.append(trend["name"]) #Make list of lookup terms
 
 
 for i in range(0,4):
-    output.append(trendsList[i])
-    trendsFilter = trendsList[i]+' -filter:retweets'
-    for tweet in api.search(q=trendsFilter,lang="en",count = 5,result_type="mixed"):
-            output.append("https://twitter.com/twitter/statuses/"+str(tweet.id))
-            transcript.append(tweet.text)
+    output.append(trendsList[i])#Name of trend added to list before respective trends
+    trendsFilter = trendsList[i]+' -filter:retweets'#Filtering out retweets
+    for tweet in api.search(q=trendsFilter,lang="en",count = 5,result_type="mixed"):#Tweet lookup
+            output.append("https://twitter.com/twitter/statuses/"+str(tweet.id))#Create link for screenshots
+            transcript.append(tweet.text)#Create transcript for tts
             
 for i in range(0,len(transcript)-1): 
-    if((transcript[i])[-23:-18] == 'https'):
-        transcript[i] = (transcript[i])[0:-23]
+    if((transcript[i])[-23:-18] == 'https'):#Find tweet transcripts with link attached at end
+        transcript[i] = (transcript[i])[0:-23]#Remove link
+
+#TTS
+
+myobj = gTTS(text=transcript[0], lang=language, slow=False)#Slow = False to force high speed
+myobj.save("welcome.mp3")
 
 #screenshot algorithm
 
