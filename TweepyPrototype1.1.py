@@ -5,6 +5,9 @@ from time import sleep
 from PIL import Image
 
 from gtts import gTTS
+from gtts.tokenizer import pre_processors, Tokenizer, tokenizer_cases
+from gtts.utils import _minimize, _len, _clean_tokens, _translate_url
+from gtts.lang import tts_langs, _fallback_deprecated_lang
 #import os
 
 
@@ -15,9 +18,6 @@ auth.set_access_token("871671216901427201-8xLxXu1mGnw9hW268mlTHSn0ayvbXD7",
                       "soFJg6EQbCJmJdj014Zbdeo2MxJlhylBTLyF3ejclZZ3m")#Access token and secret
 api = tweepy.API(auth)
 
-
-language = 'en'#Language that tts reads
-
 trendsList = list()
 trendsFilter = str()
 
@@ -26,6 +26,8 @@ transcript = list()
 
 countConst = 5
 
+language = 'en'#Language that tts reads
+localizer ='ie'#co.uk,ca,co.in,ei,ca
 
 trendsDick = api.trends_place(2295414)#Get list of dictionaries of trends of yahoo WOEID code
 for trend in trendsDick[0]["trends"]:
@@ -39,14 +41,20 @@ for i in range(0,4):
             output.append("https://twitter.com/twitter/statuses/"+str(tweet.id))#Create link for screenshots
             transcript.append(tweet.full_text)#Create transcript for tts
             
-for i in range(0,len(transcript)-1): 
+for i in range(0,len(transcript)): 
     if((transcript[i])[-23:-18] == 'https'):#Find tweet transcripts with link attached at end
         transcript[i] = (transcript[i])[0:-23]#Remove link
 
 #TTS
 
-myobj = gTTS(text=transcript[0], lang=language, slow=False)#Slow = False to force high speed
-myobj.save("welcome.mp3")
+for i in range(0,len(transcript)):
+    #gtts.tokenizer.pre_processors.abbreviations(transcript[i])
+    myobj = gTTS(text=transcript[i],
+                 lang=language,
+                 tld = localizer,
+                 slow=False)
+                 #Slow = False to force high speed
+    myobj.save(str(i)+"audio.mp3")
 
 #screenshot algorithm
 

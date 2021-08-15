@@ -2,7 +2,10 @@ import tweepy
 import json
 
 from gtts import gTTS
-from gtts.tokenizer import PreProcessorRegex, PreProcessorSub, symbols
+from gtts.tokenizer import pre_processors, Tokenizer, tokenizer_cases
+from gtts.utils import _minimize, _len, _clean_tokens, _translate_url
+from gtts.lang import tts_langs, _fallback_deprecated_lang
+
 
 auth = tweepy.OAuthHandler("rIRlNfDSqeKSG3S28y1lftbHB",
                            "FO8ljQPJNZfNucfrIqz4SluY1ZvoidezpZYYR6smsGp19Tiv9X")
@@ -18,7 +21,8 @@ transcript = list()
 
 countConst = 5
 
-language = 'en'#Language that tts reads
+language = 'en-uk'#Language that tts reads
+localizer ='ie'#co.uk,ca,co.in,ei,ca
 
 
 trendsDick = api.trends_place(2295414)
@@ -44,7 +48,11 @@ print(len(transcript))
 
 for i in range(0,len(transcript)):
     #gtts.tokenizer.pre_processors.abbreviations(transcript[i])
-    myobj = gTTS(text=transcript[i], lang=language, slow=False,)#Slow = False to force high speed
+    myobj = gTTS(text=transcript[i],
+                 lang=language,
+                 tld = localizer,
+                 slow=False)
+                 #Slow = False to force high speed
     myobj.save(str(i)+"audio.mp3")
 
 
