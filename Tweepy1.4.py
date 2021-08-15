@@ -6,7 +6,11 @@ from PIL import Image
 from gtts.tokenizer import PreProcessorRegex, PreProcessorSub, symbols
 from gtts import gTTS
 from moviepy.editor import *
-#import os
+
+#Youtube upload modules
+import datetime
+from Google import Create_Service
+from googleapiclient.http import MediaFileUpload
 
 
 #twitter algorithm
@@ -15,17 +19,22 @@ auth = tweepy.OAuthHandler("rIRlNfDSqeKSG3S28y1lftbHB",
 auth.set_access_token("871671216901427201-8xLxXu1mGnw9hW268mlTHSn0ayvbXD7",
                       "soFJg6EQbCJmJdj014Zbdeo2MxJlhylBTLyF3ejclZZ3m")#Access token and secret
 api = tweepy.API(auth)
-
 trendsList = list()
 trendsFilter = str()
-
 output = list()
 transcript = list()
-
 countConst = 5
 
 language = 'en'#Language that tts reads
 localizer ='ie'#co.uk,ca,co.in,ie,ca
+
+CLIENT_SECRET_FILE = 'client_secrets.json'
+API_NAME = 'youtube'
+API_VERSION = 'v3'
+SCOPES = ['https://www.googleapis.com/auth/youtube.upload']
+service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
+
+
 
 trendsDick = api.trends_place(2295414)#Get list of dictionaries of trends of yahoo WOEID code
 for trend in trendsDick[0]["trends"]:
@@ -124,6 +133,55 @@ for i in range(1,21):
 final_clip = concatenate_videoclips(finalClipList)
     
 final_clip.write_videofile("data/finalclip.mp4", fps=6,threads=8,logger = None)
+
+
+#Youtube upload
+request_body = {
+    'snippet': {
+        'categoryI': 20,
+        'title': l5[0]+','+l5[1]+','+l5[2]+','+l5[3],
+        'description': 'HI PARTH!!!',
+        'tags': ['Creeper', 'Video Game']
+    },
+    'status': {
+        'privacyStatus': 'public',
+        #'publishAt': upload_date_time,
+        'selfDeclaredMadeForKids': False, 
+    },
+    'notifySubscribers': False
+}
+
+mediaFile = MediaFileUpload('data/finalclip.mp4')
+
+response_upload = service.videos().insert(
+    part='snippet,status',
+    body=request_body,
+    media_body=mediaFile
+).execute()
+
+
+service.thumbnails().set(
+    videoId=response_upload.get('id'),
+    media_body=MediaFileUpload(V3)
+).execute()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                 
 

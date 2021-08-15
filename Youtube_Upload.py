@@ -1,3 +1,4 @@
+import V3
 import datetime
 from Google import Create_Service
 from googleapiclient.http import MediaFileUpload
@@ -15,7 +16,7 @@ request_body = {
     'snippet': {
         'categoryI': 20,
         'title': 'Test Upload',
-        'description': 'Please work god please',
+        'description': 'HI PARTH!!!',
         'tags': ['Creeper', 'Video Game']
     },
     'status': {
@@ -37,5 +38,5 @@ response_upload = service.videos().insert(
 
 service.thumbnails().set(
     videoId=response_upload.get('id'),
-    media_body=MediaFileUpload('ThumbnailSample.png')
+    media_body=MediaFileUpload(V3)
 ).execute()
