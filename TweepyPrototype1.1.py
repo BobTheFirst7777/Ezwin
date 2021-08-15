@@ -37,7 +37,7 @@ for i in range(0,4):
     trendsFilter = trendsList[i]+' -filter:retweets'#Filtering out retweets
     for tweet in api.search(q=trendsFilter,lang="en",count = 5,result_type="mixed",tweet_mode = "extended"):#Tweet lookup
             output.append("https://twitter.com/twitter/statuses/"+str(tweet.id))#Create link for screenshots
-            transcript.append(tweet.text)#Create transcript for tts
+            transcript.append(tweet.full_text)#Create transcript for tts
             
 for i in range(0,len(transcript)-1): 
     if((transcript[i])[-23:-18] == 'https'):#Find tweet transcripts with link attached at end

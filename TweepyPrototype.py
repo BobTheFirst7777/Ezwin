@@ -31,7 +31,7 @@ for i in range(0,4):
     trendsFilter = trendsList[i]+' -filter:retweets'
     for tweet in api.search(q=trendsFilter,lang="en",count = 5,result_type="mixed",tweet_mode = "extended"):
             output.append("https://twitter.com/twitter/statuses/"+str(tweet.id))
-            transcript.append(tweet.text)
+            transcript.append(tweet.full_text)
         
 
 #print(output)
