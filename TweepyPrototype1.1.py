@@ -35,7 +35,7 @@ for trend in trendsDick[0]["trends"]:
 for i in range(0,4):
     output.append(trendsList[i])#Name of trend added to list before respective trends
     trendsFilter = trendsList[i]+' -filter:retweets'#Filtering out retweets
-    for tweet in api.search(q=trendsFilter,lang="en",count = 5,result_type="mixed"):#Tweet lookup
+    for tweet in api.search(q=trendsFilter,lang="en",count = 5,result_type="mixed",tweet_mode = "extended"):#Tweet lookup
             output.append("https://twitter.com/twitter/statuses/"+str(tweet.id))#Create link for screenshots
             transcript.append(tweet.text)#Create transcript for tts
             
@@ -45,7 +45,7 @@ for i in range(0,len(transcript)-1):
 
 #TTS
 
-myobj = gTTS(text=transcript[0], lang=language, slow=False, tweet_mode = "extended")#Slow = False to force high speed
+myobj = gTTS(text=transcript[0], lang=language, slow=False)#Slow = False to force high speed
 myobj.save("welcome.mp3")
 
 #screenshot algorithm

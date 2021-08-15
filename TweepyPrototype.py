@@ -29,7 +29,7 @@ for trend in trendsDick[0]["trends"]:
 for i in range(0,4):
     output.append(trendsList[i])
     trendsFilter = trendsList[i]+' -filter:retweets'
-    for tweet in api.search(q=trendsFilter,lang="en",count = 5,result_type="mixed"):
+    for tweet in api.search(q=trendsFilter,lang="en",count = 5,result_type="mixed",tweet_mode = "extended"):
             output.append("https://twitter.com/twitter/statuses/"+str(tweet.id))
             transcript.append(tweet.text)
         
@@ -44,7 +44,7 @@ print(len(transcript))
 
 for i in range(0,len(transcript)):
     #gtts.tokenizer.pre_processors.abbreviations(transcript[i])
-    myobj = gTTS(text=transcript[i], lang=language, slow=False,tweet_mode = "extended")#Slow = False to force high speed
+    myobj = gTTS(text=transcript[i], lang=language, slow=False,)#Slow = False to force high speed
     myobj.save(str(i)+"audio.mp3")
 
 
