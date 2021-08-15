@@ -2,6 +2,7 @@ import tweepy
 import json
 
 from gtts import gTTS
+from gtts.tokenizer import PreProcessorRegex, PreProcessorSub, symbols
 
 auth = tweepy.OAuthHandler("rIRlNfDSqeKSG3S28y1lftbHB",
                            "FO8ljQPJNZfNucfrIqz4SluY1ZvoidezpZYYR6smsGp19Tiv9X")
@@ -42,6 +43,7 @@ print(transcript)
 print(len(transcript))
 
 for i in range(0,len(transcript)):
+    #gtts.tokenizer.pre_processors.abbreviations(transcript[i])
     myobj = gTTS(text=transcript[i], lang=language, slow=False)#Slow = False to force high speed
     myobj.save(str(i)+"audio.mp3")
 
