@@ -2,7 +2,7 @@ import TweepyV6
 from tkinter import *
 from PIL import ImageTk,Image
 from tkinter import filedialog
-
+import datetime
 
 
     
@@ -72,12 +72,28 @@ def splash():
         w = OptionMenu(windowB, menu, *OPTIONS)
         w.pack()
 
+        asdjnk = Label(windowB,text = 'WARNING this system is still a prototype, only daily uploading works').pack()
+
+            
         publishB = Button(windowB,borderwidth = 0.6,
+            
             activebackground = 'grey',
             height = 3,
             font =('Courier', 12),
-            text = 'SET'
+            text = 'SET',
+            command=lambda: de(menu.get())
            ).pack()
+
+        def de(kind):
+            if(kind == 'Automatic Daily Uploads'):
+                if(int(datetime.datetime.now().strftime('%H'))>12):
+                    TweepyV6.date+=1
+                                    
+                
+            
+            
+    
+        
 
     def windowThree():
         windowC = Toplevel(root)

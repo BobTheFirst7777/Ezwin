@@ -8,6 +8,7 @@ from gtts.tokenizer import PreProcessorRegex, PreProcessorSub, symbols
 from gtts import gTTS
 from moviepy.editor import *
 
+
 #Youtube upload modules
 import datetime
 from Google import Create_Service
@@ -34,6 +35,10 @@ API_NAME = 'youtube'
 API_VERSION = 'v3'
 SCOPES = ['https://www.googleapis.com/auth/youtube.upload']
 service = Create_Service(CLIENT_SECRET_FILE, API_NAME, API_VERSION, SCOPES)
+month = int()
+date = int()
+
+
 
 
 def findTrends():
@@ -121,6 +126,9 @@ def getTweets(trendsList):
     for f in os.listdir(mydir):
         os.remove(os.path.join(mydir, f))
 
+
+    bob = datetime.datetime(2021, month, date, 12, 00, 0).isoformat() + '.000Z'
+
     request_body = {
         'snippet': {
             'categoryI': 20,
@@ -130,7 +138,7 @@ def getTweets(trendsList):
         },
         'status': {
             'privacyStatus': 'public',
-            #'publishAt': upload_date_time,
+            'publishAt': bob,
             'selfDeclaredMadeForKids': False, 
         },
         'notifySubscribers': False
@@ -171,36 +179,6 @@ def createThumbnail():
         x+=l
     tb.save("thumbnail.png")
 
-
-    #Youtube upload
-    request_body = {
-        'snippet': {
-            'categoryI': 20,
-            'title': l5[0]+','+l5[1]+','+l5[2]+','+l5[3],
-            'description': 'HI PARTH!!!',
-            'tags': ['Creeper', 'Video Game']
-        },
-        'status': {
-            'privacyStatus': 'public',
-            #'publishAt': upload_date_time,
-            'selfDeclaredMadeForKids': False, 
-        },
-        'notifySubscribers': False
-    }
-
-    mediaFile = MediaFileUpload('data/finalclip.mp4')
-
-    response_upload = service.videos().insert(
-        part='snippet,status',
-        body=request_body,
-        media_body=mediaFile
-    ).execute()
-
-
-    service.thumbnails().set(
-        videoId=response_upload.get('id'),
-        media_body=MediaFileUpload()
-    ).execute()
 
 
 
