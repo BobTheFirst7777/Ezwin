@@ -84,10 +84,10 @@ def splash():
             command=lambda: de(menu.get())
            ).pack()
 
-        def de(kind):
-            if(kind == 'Automatic Daily Uploads'):
-                if(int(datetime.datetime.now().strftime('%H'))>12):
-                    TweepyV6.date+=1
+  #      def de(kind):
+     #       if(kind == 'Automatic Daily Uploads'):
+       #         if(int(datetime.datetime.now().strftime('%H'))>12):
+         #           TweepyV6.date+=1
                                     
                 
             
