@@ -66,28 +66,15 @@ def getTweets(trendsList):
         myobj.save("data/"+str(i+1)+".mp3")
     
 #sorting algorithm
-
     l1=list()
-    l2=list()
-    l3=list()
-    l4=list()
     l5=list()
-    temp=0
-
 
     for i in range(0,len(output)):
         if (len(output[i])!=56):
             l5.append(output[i])
-            temp+=1
         else:
-            if temp==1 :
-                l1.append(output[i])
-            elif temp==2 :
-                l2.append(output[i])
-            elif temp==3 :
-                l3.append(output[i])
-            elif temp==4 :
-                l4.append(output[i])
+            l1.append(output[i])
+
 
     #Screenshot algorithm
     options = webdriver.ChromeOptions()
@@ -99,30 +86,14 @@ def getTweets(trendsList):
             driver.get(l1[a])
             sleep(2)
             driver.save_screenshot("data/"+str(a+1)+".png")
-    for b in range(0,len(l2)):
-            driver.get(l2[b])
-            sleep(2)
-            driver.save_screenshot("data/"+str(b+6)+".png")
-    for c in range(0,len(l3)):
-            driver.get(l3[c])
-            sleep(2)
-            driver.save_screenshot("data/"+str(c+11)+".png")
-    for d in range(0,len(l4)):
-            driver.get(l4[d])
-            sleep(2)
-            driver.save_screenshot("data/"+str(d+16)+".png")
 
     driver.quit()
 
     #cropping algorithm
 
-    width = 1200
-    height = 500
-
-    for j in range(1,21):
+    for j in range(1,len(l1)+1):
             im=Image.open("data/"+str(j)+".png")
-            im=im.crop((300,0,width,height))
-            #im=im.resize((1280,720), Image.BOX)
+            im=im.crop((300,0,1200,500))
             im.save("data/"+str(j)+".png")
 
 
@@ -133,14 +104,14 @@ def getTweets(trendsList):
     cliptb = ImageClip("thumbnail.png").set_duration(3)
     finalClipList.append(cliptb)
     '''
-    for i in range(1,21):
+    for i in range(1,len(l1)+1):
         audio = AudioFileClip("data/"+str(i)+".mp3")
         clip = ImageClip("data/"+str(i)+".png").set_duration(audio.duration)
         clip = clip.set_audio(audio)
         finalClipList.append(clip)
 
     final_clip = concatenate_videoclips(finalClipList)
-        
+
     final_clip.write_videofile("finalclip.mp4", fps=6,threads=8,logger = None)
 
 

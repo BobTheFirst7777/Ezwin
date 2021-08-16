@@ -1,11 +1,12 @@
 import TweepyV6
 from tkinter import *
 from PIL import ImageTk,Image
+from tkinter import filedialog
 
 
 
     
-def splash(:)
+def splash():
     def windowOne():
         windowA = Toplevel(root)
         windowA.title('Configure and Upload Video')
@@ -59,6 +60,25 @@ def splash(:)
         windowB.iconbitmap('UIData/logo.ico')
         windowB.geometry('400x400')
         windowB.resizable(False, False)
+
+        OPTIONS = ["Automatic Daily Uploads",
+                   "Automatic Weekly Uploads",
+                   "Autamatic Monthly Uploads"]
+
+
+        menu = StringVar(windowB)
+        menu.set(OPTIONS[0]) 
+
+        w = OptionMenu(windowB, menu, *OPTIONS)
+        w.pack()
+
+        publishB = Button(windowB,borderwidth = 0.6,
+            activebackground = 'grey',
+            height = 3,
+            font =('Courier', 12),
+            text = 'SET'
+           ).pack()
+
     def windowThree():
         windowC = Toplevel(root)
         windowC.title('Customize Video')
@@ -66,6 +86,33 @@ def splash(:)
         windowC.geometry('400x400')
         windowC.resizable(False, False)
 
+        def thumbnail():
+            root.filename = filedialog.askopenfilename(initialdir="C:/", title = "Select the thumbnail", filetypes = (("jpg files", "*.jpg"), ("jpeg files", "*.jpeg"), ("png files", "*.png")))
+            l1 = Label(windowC, text = root.filename).pack()
+
+        def intro():
+            root.filename = filedialog.askopenfilename(initialdir="C:/", title = "Select the intro", filetypes = (("mp4 files", "*.mp4"), ("MOV files", "*.mov")))
+            l2 = Label(windowC, text = root.filename).pack()
+
+        publishC1 = Button(windowC,borderwidth = 0.6,
+            activebackground = 'grey',
+            height = 3,
+            font =('Courier', 14),
+            text = 'Upload custom thumbnail',
+            command = thumbnail
+           ).pack()
+
+        publishC2 = Button(windowC,borderwidth = 0.6,
+            activebackground = 'grey',
+            height = 3,
+            font =('Courier', 14),
+            text = 'Upload custom intro',
+            command = intro
+           ).pack()
+        
+
+
+    
 
             
     splashRoot.destroy()
