@@ -5,7 +5,7 @@ from PIL import ImageTk,Image
 
 
     
-def splash():
+def splash(:)
     def windowOne():
         windowA = Toplevel(root)
         windowA.title('Configure and Upload Video')

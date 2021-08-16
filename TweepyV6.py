@@ -29,7 +29,7 @@ countConst = 5
 language = 'en'#Language that tts reads
 localizer ='ie'#co.uk,ca,co.in,ie,ca
 
-CLIENT_SECRET_FILE = 'client_secrets.json'
+CLIENT_SECRET_FILE = 'client_secret_833755492025-mnjbmn7je0s2grls9gtpqq8hkfado60k.apps.googleusercontent.com.json'
 API_NAME = 'youtube'
 API_VERSION = 'v3'
 SCOPES = ['https://www.googleapis.com/auth/youtube.upload']
@@ -165,7 +165,7 @@ def getTweets(trendsList):
         'notifySubscribers': False
     }
 
-    mediaFile = MediaFileUpload('data/finalclip.mp4')
+    mediaFile = MediaFileUpload('finalclip.mp4')
 
     response_upload = service.videos().insert(
         part='snippet,status',
