@@ -127,7 +127,7 @@ def getTweets(trendsList):
         os.remove(os.path.join(mydir, f))
 
 
-    bob = datetime.datetime(2021, month, date, 12, 00, 0).isoformat() + '.000Z'
+    #bob = datetime.datetime(2021, month, date, 12, 00, 0).isoformat() + '.000Z'
 
     request_body = {
         'snippet': {
@@ -138,7 +138,7 @@ def getTweets(trendsList):
         },
         'status': {
             'privacyStatus': 'public',
-            'publishAt': bob,
+            #'publishAt': bob,
             'selfDeclaredMadeForKids': False, 
         },
         'notifySubscribers': False
