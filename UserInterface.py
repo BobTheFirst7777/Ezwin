@@ -1,15 +1,73 @@
-#import TweepyV5
+import TweepyV6
 from tkinter import *
 from PIL import ImageTk,Image
 
-def windowOne():
-    newWindow = Toplevel(root):
-        newWindow.title('Automated Twitter Content Milker')
-        newWindow.geometry('400x400')
-        newWindow.iconbitmap('UIData/logo.ico')
 
 
+    
 def splash():
+    def windowOne():
+        windowA = Toplevel(root)
+        windowA.title('Configure and Upload Video')
+        windowA.iconbitmap('UIData/logo.ico')
+        windowA.geometry('400x400')
+        windowA.resizable(False, False)
+
+
+        checkboxes = {}
+    
+        tndList = list()
+        #varList = list[var1,var2,var3,var4,var5,var6,var7,var8,var9,var10,var11,
+                       #var12,var13,var14,var15]
+        tbl = TweepyV6.findTrends()
+        
+        for i in range(0,15):
+            name = tbl[i]
+            currentVar = IntVar()
+            nowBox = Checkbutton(windowA, text=name,
+                        variable = currentVar
+                        )
+            nowBox.var = currentVar
+            nowBox.grid(row=i)
+            checkboxes[nowBox] = name
+
+        def buttonCheck():    
+            output = []
+            for box in checkboxes:
+                if box.var.get() == 1:
+                    output.append(checkboxes[box])
+            print(output)
+            return output
+
+
+
+
+        publishA = Button(windowA,borderwidth = 0.6,
+            activebackground = 'grey',
+            height = 2,
+            font =('Courier', 8),
+            text = 'Upload Video!',
+            command=lambda: TweepyV6.getTweets(buttonCheck()),
+           ).grid(row = 7,column = 1,rowspan = 2)
+
+        
+            
+        
+    def windowTwo():
+        windowB = Toplevel(root)
+        windowB.title('Schedule Automated Video Upload')
+        windowB.iconbitmap('UIData/logo.ico')
+        windowB.geometry('400x400')
+        windowB.resizable(False, False)
+    def windowThree():
+        windowC = Toplevel(root)
+        windowC.title('Customize Video')
+        windowC.iconbitmap('UIData/logo.ico')
+        windowC.geometry('400x400')
+        windowC.resizable(False, False)
+
+
+            
     splashRoot.destroy()
     root = Tk()
     root.title('Automated Twitter Content Milker')
@@ -25,17 +83,20 @@ def splash():
                 activebackground = 'grey',
                 height = 5,
                 font =('Courier', 8),
-                text = 'Configure and Upload Video')
+                text = 'Configure and Upload Video',
+                command = windowOne)
     bB = Button(root,borderwidth = 0.6,
                 activebackground = 'grey',
                 height = 5,
                 font =('Courier', 8),
-                text = 'Schedule Automated Video Upload')
+                text = 'Schedule Automated Video Upload',
+                command = windowTwo)
     bC = Button(root,borderwidth = 0.6,
                 activebackground = 'grey',
                 height = 5,
                 font =('Courier', 8),
-                text = 'Customize Video')
+                text = 'Customize Video',
+                command = windowThree)
     bD = Button(root,borderwidth = 0.6,
                 activebackground = 'grey',
                 height = 5,
@@ -52,8 +113,11 @@ def splash():
     bD.place(relx = 0.15,rely=0.9, anchor = 'center')
     #Copyrcool.place(relx=0,rely=0, anchor = 'se')
 
-    root.resizable(False, False)     
-    root.mainloop()
+    root.resizable(False, False)
+
+    
+    mainloop()
+
 
 
 
